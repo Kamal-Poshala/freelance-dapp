@@ -1,0 +1,29 @@
+{
+  "name": "freelance-dapp",
+  "version": "1.0.0",
+  "description": "A decentralized freelance platform using Ethereum smart contracts, DAO voting, and IPFS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kamal-Poshala/freelance-dapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kamal-Poshala/freelance-dapp/issues"
+  },
+  "homepage": "https://github.com/Kamal-Poshala/freelance-dapp#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.23.0"
+  }
+}
