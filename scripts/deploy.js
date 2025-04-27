@@ -1,19 +1,21 @@
 const hre = require("hardhat");
 
 async function main() {
-  const [deployer, freelancer] = await hre.ethers.getSigners();
+  const [deployer] = await hre.ethers.getSigners();
 
-  console.log("Deploying contract with account:", deployer.address);
-  console.log("Freelancer address:", freelancer.address);
+  console.log("Deploying contracts with account:", deployer.address);
 
-  const Escrow = await hre.ethers.getContractFactory("Escrow");
-  const escrow = await Escrow.deploy(freelancer.address, {
-    value: hre.ethers.parseEther("1"),
-  });
+  // Deploy ReputationNFT first
+  const ReputationNFT = await hre.ethers.getContractFactory("ReputationNFT");
+  const reputationNFT = await ReputationNFT.deploy();
+  await reputationNFT.waitForDeployment();
+  console.log("ReputationNFT deployed to:", await reputationNFT.getAddress());
 
-  await escrow.waitForDeployment();
-
-  console.log("Escrow contract deployed to:", await escrow.getAddress());
+  // Deploy EscrowFactory, setting deployer as arbitrator (for now)
+  const EscrowFactory = await hre.ethers.getContractFactory("EscrowFactory");
+  const escrowFactory = await EscrowFactory.deploy(deployer.address);
+  await escrowFactory.waitForDeployment();
+  console.log("EscrowFactory deployed to:", await escrowFactory.getAddress());
 }
 
 main().catch((error) => {
