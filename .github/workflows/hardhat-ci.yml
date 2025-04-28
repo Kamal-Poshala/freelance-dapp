@@ -1,27 +1,46 @@
-name: Hardhat CI
+name: Full Project CI
 
 on:
   pull_request:
-    branches: [ main ]  # or dev or your default branch
+    branches: [ main ]
 
 jobs:
-  build:
+  backend:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install backend dependencies
+        run: npm install
 
-    - name: Compile contracts
-      run: npx hardhat compile
+      - name: Compile contracts
+        run: npx hardhat compile
 
-    - name: Run tests
-      run: npx hardhat test
+      - name: Run backend tests
+        run: npx hardhat test
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Build frontend
+        run: npm run build
