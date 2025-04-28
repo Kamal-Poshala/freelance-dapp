@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CreateJob from "./components/CreateJob";
+import ShowJobs from "./components/ShowJobs"; // <-- Add this import
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -22,12 +23,13 @@ function App() {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Decentralized Freelance Platform</h1>
-      
+
       {account ? (
         <>
           <h2>Connected Account:</h2>
           <p>{account}</p>
           <CreateJob />
+          <ShowJobs /> {/* <-- Add this here */}
         </>
       ) : (
         <button onClick={connectWallet}>Connect MetaMask Wallet</button>
