@@ -19,7 +19,7 @@ jobs:
       - name: Install backend dependencies
         run: npm install
 
-      - name: Compile contracts
+      - name: Compile smart contracts
         run: npx hardhat compile
 
       - name: Run backend tests
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: frontend  # <--- Important for React App
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -42,5 +42,5 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
-      - name: Build frontend
+      - name: Build frontend app
         run: npm run build
