@@ -1,22 +1,111 @@
 [
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_freelancer",
-          "type": "address"
-        }
-      ],
-      "name": "createJob",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "payable",
-      "type": "function"
-    }
-  ]
-  
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_arbitrator", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "DeliveryConfirmed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "DisputeRaised",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "jobId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "client", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "freelancer", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "JobCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "jobId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "winner", "type": "address" }
+    ],
+    "name": "JobResolved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "Refunded",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "arbitrator",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "confirmDelivery",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_freelancer", "type": "address" }],
+    "name": "createJob",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "jobCounter",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "jobs",
+    "outputs": [
+      { "internalType": "address", "name": "client", "type": "address" },
+      { "internalType": "address", "name": "freelancer", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "enum EscrowFactory.State", "name": "currentState", "type": "uint8" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "raiseDispute",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "jobId", "type": "uint256" }],
+    "name": "refundClient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "jobId", "type": "uint256" },
+      { "internalType": "address", "name": "winner", "type": "address" }
+    ],
+    "name": "resolveDispute",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

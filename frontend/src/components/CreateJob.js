@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import EscrowFactoryABI from "../abi/EscrowFactory.json";
 
-const ESCROW_FACTORY_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"; // your deployed factory address
+const ESCROW_FACTORY_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
 function CreateJob() {
   const [freelancerAddress, setFreelancerAddress] = useState("");
