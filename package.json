@@ -1,32 +1,50 @@
 {
   "name": "freelance-dapp",
   "version": "1.0.0",
-  "description": "A decentralized freelance platform using Ethereum smart contracts, DAO voting, and IPFS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kamal-Poshala/freelance-dapp.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Kamal-Poshala/freelance-dapp/issues"
-  },
-  "homepage": "https://github.com/Kamal-Poshala/freelance-dapp#readme",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
+  "description": "This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.",
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-ignition": "^0.15.11",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.11",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.23.0"
+    "@nomicfoundation/hardhat-verify": "^2.0.13",
+    "@nomicfoundation/ignition-core": "^0.15.11",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^9.1.0",
+    "chai": "^4.5.0",
+    "hardhat": "^2.23.0",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.15",
+    "ts-node": "^8.0.0",
+    "typechain": "^8.3.2",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.3.0"
-  }
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^5.3.0",
+    "ethers": "^6.13.5",
+    "ipfs-http-client": "^60.0.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saiprasad48/decentralized-freelance-marketplace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Saiprasad48/decentralized-freelance-marketplace/issues"
+  },
+  "homepage": "https://github.com/Saiprasad48/decentralized-freelance-marketplace#readme"
 }

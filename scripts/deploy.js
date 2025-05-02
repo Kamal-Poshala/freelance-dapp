@@ -1,36 +1,29 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
 
-  console.log("📦 Deploying contracts with account:", deployer.address);
+  // Deploy Escrow contract (0 arguments)
+  const Escrow = await ethers.getContractFactory("Escrow");
+  const escrow = await Escrow.connect(deployer).deploy();
+  await escrow.waitForDeployment();
+  console.log("Escrow deployed to:", await escrow.getAddress());
 
-  // 1. Deploy ReputationNFT
-  const ReputationNFT = await hre.ethers.getContractFactory("ReputationNFT");
-  const reputationNFT = await ReputationNFT.deploy();
-  await reputationNFT.waitForDeployment();
-  const reputationNFTAddress = await reputationNFT.getAddress();
-  console.log("✅ ReputationNFT deployed to:", reputationNFTAddress);
+  // Deploy ReputationToken contract (3 arguments: name, symbol, initialOwner)
+  const ReputationToken = await ethers.getContractFactory("ReputationToken");
+  const repToken = await ReputationToken.deploy("Reputation Token", "RPT", deployer.address);
+  await repToken.waitForDeployment();
+  console.log("ReputationToken deployed to:", await repToken.getAddress());
 
-  // 2. Deploy EscrowFactory with deployer as arbitrator
-  const EscrowFactory = await hre.ethers.getContractFactory("EscrowFactory");
-  const escrowFactory = await EscrowFactory.deploy(deployer.address); // Pass arbitrator
-  await escrowFactory.waitForDeployment();
-  const escrowFactoryAddress = await escrowFactory.getAddress();
-  console.log("✅ EscrowFactory deployed to:", escrowFactoryAddress);
-
-  // Optional: Save to JSON file (future enhancement)
-  /*
-  const fs = require("fs");
-  const deploymentInfo = {
-    ReputationNFT: reputationNFTAddress,
-    EscrowFactory: escrowFactoryAddress,
-  };
-  fs.writeFileSync("deployedContracts.json", JSON.stringify(deploymentInfo, null, 2));
-  */
+  // Deploy DisputeDAO contract (0 arguments)
+  const DisputeDAO = await ethers.getContractFactory("DisputeDAO");
+  const dao = await DisputeDAO.deploy();
+  await dao.waitForDeployment();
+  console.log("DAO deployed to:", await dao.getAddress());
 }
 
 main().catch((error) => {
-  console.error("❌ Deployment failed:", error);
+  console.error(error);
   process.exitCode = 1;
 });
