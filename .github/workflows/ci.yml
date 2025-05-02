@@ -1,0 +1,45 @@
+name: Freelance DApp CI
+
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🟢 Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📦 Install root dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: 🔨 Compile Hardhat contracts
+        run: npx hardhat compile
+
+      - name: 🧪 Run Hardhat tests
+        run: npx hardhat test
+
+      - name: ⬇️ Install frontend dependencies
+        working-directory: ./client
+        run: npm install --legacy-peer-deps
+
+      - name: ⚛️ Build frontend
+        working-directory: ./client
+        run: npm run build
+
+      - name: ✅ Lint frontend
+        working-directory: ./client
+        run: npm run lint || echo "Lint failed, but not breaking CI"
