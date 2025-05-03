@@ -33,6 +33,14 @@ The smart contracts are written in Solidity and deployed using Hardhat. The fron
 - **IPFS Integration**: Deliverables are uploaded to IPFS via Pinata for decentralized storage.
 - **Local Testing**: Pre-configured Hardhat accounts for easy testing (client and freelancer roles).
 
+## 📽️ Project Demo
+
+[![Watch the demo](https://img.youtube.com/vi/gMVxYcQw7wE/hqdefault.jpg)](https://youtu.be/gMVxYcQw7wE?si=dNPNF2knfABDi4tY)
+
+> Click the image above to watch the walkthrough of our decentralized freelance marketplace project.
+
+---
+
 ## Prerequisites
 
 Before setting up the project, ensure you have the following installed:
