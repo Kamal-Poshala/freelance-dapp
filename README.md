@@ -1,3 +1,4 @@
+
 # Decentralized Freelance Marketplace
 
 A decentralized application (DApp) built on Ethereum that allows clients to hire freelancers, manage payments through an escrow system, and resolve disputes using a DAO (Decentralized Autonomous Organization). The project integrates smart contracts (developed with Hardhat) and a React frontend, with file uploads handled via Pinata (IPFS).
@@ -227,3 +228,22 @@ decentralized-freelance-marketplace/
 - **UI Enhancements**: Improve the frontend with better styling and user feedback.
 - **Testing**: Add more comprehensive unit tests for smart contracts.
 - **CI/CD**: Set up GitHub Actions for automated testing and deployment.
+<<<<<<< HEAD
+=======
+=======
+# Decentralized Freelance Platform
+
+This repository represents the **individual development work of Kamal Poshala**  
+as part of the decentralized freelance marketplace project.
+
+At the final stage, this work will be **merged into the team repository**  
+maintained by Saiprasad: [Saiprasad's GitHub Repository](https://github.com/Saiprasad48/decentralized-freelance-marketplace).
+
+
+## 👨‍💻 Developer Note
+
+✅ Kamal's Repository: [https://github.com/Kamal-Poshala/freelance-dapp](https://github.com/Kamal-Poshala/freelance-dapp)  
+✅ Team Final Repository (to be merged): [https://github.com/Saiprasad48/decentralized-freelance-marketplace](https://github.com/Saiprasad48/decentralized-freelance-marketplace)
+
+
+>>>>>>> afafd4e5494ceaada5328b6a978016eae0aadf5f
