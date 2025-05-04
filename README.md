@@ -244,5 +244,3 @@ maintained by Saiprasad: [Saiprasad's GitHub Repository](https://github.com/Saip
 ✅ Kamal's Repository: [https://github.com/Kamal-Poshala/freelance-dapp](https://github.com/Kamal-Poshala/freelance-dapp)  
 ✅ Team Final Repository (to be merged): [https://github.com/Saiprasad48/decentralized-freelance-marketplace](https://github.com/Saiprasad48/decentralized-freelance-marketplace)
 
-
->>>>>>> afafd4e5494ceaada5328b6a978016eae0aadf5f
