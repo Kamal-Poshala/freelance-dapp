@@ -227,9 +227,7 @@ decentralized-freelance-marketplace/
 - **UI Enhancements**: Improve the frontend with better styling and user feedback.
 - **Testing**: Add more comprehensive unit tests for smart contracts.
 - **CI/CD**: Set up GitHub Actions for automated testing and deployment.
-<<<<<<< HEAD
-=======
-=======
+
 # Decentralized Freelance Platform
 
 This repository represents the **individual development work of Kamal Poshala**  
