@@ -35,7 +35,10 @@ The smart contracts are written in Solidity and deployed using Hardhat. The fron
 
 [![Watch the Demo](https://img.youtube.com/vi/lUf8aVmSUtQ/0.jpg)](https://youtu.be/lUf8aVmSUtQ?si=rC3GC_QOnARlTxoC)
 
-Click the image above to watch the full demo of our decentralized freelance marketplace on YouTube.
+Click the image above to watch the demo of our decentralized freelance marketplace on YouTube.
+
+Watch the full video demonstration of our decentralized freelance marketplace here:  
+👉 [YouTube Video](https://youtu.be/gMVxYcQw7wE)
 
 ## Prerequisites
 
