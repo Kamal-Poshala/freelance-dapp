@@ -24,12 +24,26 @@ const HARDHAT_ACCOUNTS = [
   { 
     address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", 
     label: "Client (Account 0)", 
-    privateKey: "0x59c6995e998f97a5a0044976f72f1760868cc86c09d8d05e7a6c8c6d07c7b2e9"
+
+    privateKey: "" // Private key of the address should be filled here 
+
+  },
+  { 
+    address: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
+    label: "Freelancer (Account 1)", 
+    privateKey: "" // Private key of the address should be filled here
   },
   { 
     address: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", 
-    label: "Freelancer (Account 1)", 
-    privateKey: "0x8b3a350cf5c34c9194ca167d4d763f3b2b3ec5b3e9be07f2a3d5e6f5c9f3f6c4"
+    label: "Freelancer (Account 2)", 
+    privateKey: "" // Private key of the address should be filled here
+  },
+  { 
+    address: "0x90F79bf6EB2c4f870365E785982E1f101E93b906", 
+    label: "Freelancer (Account 3)", 
+
+    privateKey: "" // Private key of the address should be filled here
+
   },
   {
     address: "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
@@ -168,55 +182,47 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
   };
 
   // Fetch reputation balance
-  useEffect(() => {
-    const fetchRep = async () => {
-      if (repToken && account) {
-        try {
-          const bal = await repToken.balanceOf(account);
-          setRepBalance(ethers.formatUnits(bal, 18));
-        } catch (error) {
-          console.error("Fetch balance failed:", error);
-          setTxStatus("Error: Failed to fetch reputation balance");
-          addToTxHistory("Error: Failed to fetch reputation balance");
-        }
+  const fetchRep = async () => {
+    if (repToken && account) {
+      try {
+        const bal = await repToken.balanceOf(account);
+        setRepBalance(ethers.formatUnits(bal, 18));
+      } catch (error) {
+        console.error("Fetch balance failed:", error);
+        setTxStatus("Error: Failed to fetch reputation balance");
+        addToTxHistory("Error: Failed to fetch reputation balance");
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     fetchRep();
   }, [repToken, account]);
 
   // Fetch active jobs
-  useEffect(() => {
-    const fetchJobs = async () => {
-      if (escrow && account) {
-        try {
-          const jobCount = await escrow.jobCount();
-          const jobList = [];
-          for (let i = 1; i <= jobCount; i++) {
-            const job = await escrow.jobs(i);
-            jobList.push({
-              id: i,
-              client: job.client,
-              freelancer: job.freelancer,
-              amount: ethers.formatEther(job.amount),
-              status:
-                job.status === 0
-                  ? "Created"
-                  : job.status === 1
-                  ? "Funded"
-                  : job.status === 2
-                  ? "Delivered"
-                  : job.status === 3
-                  ? "Confirmed"
-                  : "Disputed",
-              deliveryUrl: job.deliveryUrl,
-            });
-          }
-          setJobs(jobList);
-        } catch (error) {
-          console.error("Fetch jobs failed:", error);
+  const fetchJobs = async () => {
+    if (escrow && account) {
+      try {
+        const jobCount = await escrow.jobCount();
+        const jobList = [];
+        for (let i = 1; i <= jobCount; i++) {
+          const job = await escrow.jobs(i);
+          jobList.push({
+            id: i,
+            client: job.client,
+            freelancer: job.freelancer,
+            amount: ethers.formatEther(job.amount),
+            deliveryUrl: job.deliveryUrl,
+          });
         }
+        setJobs(jobList);
+      } catch (error) {
+        console.error("Fetch jobs failed:", error);
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     fetchJobs();
   }, [escrow, account]);
 
@@ -287,6 +293,7 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
         setJobId(event.args.jobId.toString());
         setTxStatus(`Success: Job created with ID: ${event.args.jobId}`);
         addToTxHistory(`Success: Job created with ID: ${event.args.jobId}`);
+        await fetchJobs(); // Refresh jobs
       } else {
         setTxStatus("Error: Job creation failed: No JobCreated event");
         addToTxHistory("Error: Job creation failed: No JobCreated event");
@@ -326,6 +333,7 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
       if (event) {
         setTxStatus(`Success: Job ID ${jobId} funded`);
         addToTxHistory(`Success: Job ID ${jobId} funded`);
+        await fetchJobs(); // Refresh jobs
       } else {
         setTxStatus("Error: Job funding failed: No JobFunded event");
         addToTxHistory("Error: Job funding failed: No JobFunded event");
@@ -363,6 +371,7 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
       if (event) {
         setTxStatus(`Success: Delivery submitted for Job ID: ${jobId}`);
         addToTxHistory(`Success: Delivery submitted for Job ID: ${jobId}`);
+        await fetchJobs(); // Refresh jobs
       } else {
         setTxStatus("Error: Delivery submission failed: No DeliverySubmitted event");
         addToTxHistory("Error: Delivery submission failed: No DeliverySubmitted event");
@@ -379,7 +388,7 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
     setFile(e.target.files[0]);
   };
 
-  // Escrow  Confirm delivery
+  // Escrow: Confirm delivery
   const confirmDelivery = async () => {
     if (!escrow || !jobId) {
       setTxStatus("Error: Please provide job ID");
@@ -393,6 +402,8 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
       await tx.wait();
       setTxStatus("Success: Delivery confirmed and payment released!");
       addToTxHistory("Success: Delivery confirmed and payment released!");
+      await fetchJobs(); // Refresh jobs
+      await fetchRep();  // Refresh reputation balance
     } catch (error) {
       console.error("Confirm delivery failed:", error);
       setTxStatus(`Error: ${error.reason || error.message}`);
@@ -414,10 +425,12 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
       await tx.wait();
       setTxStatus("Success: Dispute initiated!");
       addToTxHistory("Success: Dispute initiated!");
+      await fetchJobs(); // Refresh jobs
+      await fetchRep();  // Refresh reputation balance
     } catch (error) {
       console.error("Dispute job failed:", error);
       setTxStatus(`Error: ${error.reason || error.message}`);
-      addToTxHistory(`Error: Perspective: ${error.reason || error.message}`);
+      addToTxHistory(`Error: ${error.reason || error.message}`);
     }
   };
 
@@ -547,11 +560,11 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
                   <th style={{ padding: 8, border: "1px solid #ddd" }}>Client</th>
                   <th style={{ padding: 8, border: "1px solid #ddd" }}>Freelancer</th>
                   <th style={{ padding: 8, border: "1px solid #ddd" }}>Amount (ETH)</th>
-                  <th style={{ padding: 8, border: "1px solid #ddd" }}>Status</th>
                   <th style={{ padding: 8, border: "1px solid #ddd" }}>Delivery URL</th>
                 </tr>
               </thead>
               <tbody>
+
 {jobs
   .filter(job => {
     if (role === "Client") return job.client.toLowerCase() === selectedAccount.toLowerCase();
@@ -608,6 +621,7 @@ const resolveDispute = async (jobId, releaseToFreelancer) => {
     </tr>
   ))}
 </tbody>
+
             </table>
           ) : (
             <p>No active jobs found.</p>

@@ -13,7 +13,6 @@ A decentralized application (DApp) built on Ethereum that allows clients to hire
 - [Directory Structure](#directory-structure)
 - [Security Notes](#security-notes)
 - [Future Improvements](#future-improvements)
-- [License](#license)
 
 ## Overview
 
@@ -228,6 +227,8 @@ decentralized-freelance-marketplace/
 - **UI Enhancements**: Improve the frontend with better styling and user feedback.
 - **Testing**: Add more comprehensive unit tests for smart contracts.
 - **CI/CD**: Set up GitHub Actions for automated testing and deployment.
+<<<<<<< HEAD
+=======
 =======
 # Decentralized Freelance Platform
 
@@ -244,3 +245,4 @@ maintained by Saiprasad: [Saiprasad's GitHub Repository](https://github.com/Saip
 ✅ Team Final Repository (to be merged): [https://github.com/Saiprasad48/decentralized-freelance-marketplace](https://github.com/Saiprasad48/decentralized-freelance-marketplace)
 
 
+>>>>>>> afafd4e5494ceaada5328b6a978016eae0aadf5f

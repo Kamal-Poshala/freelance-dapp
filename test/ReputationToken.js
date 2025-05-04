@@ -16,13 +16,25 @@ describe("ReputationToken (ERC20)", function () {
     expect(await rep.totalSupply()).to.equal(0);
   });
 
-  it("should allow only admin to mint", async function () {
+  it("should allow only MINTER_BURNER_ROLE to mint", async function () {
     await rep.connect(owner).mint(user1.address, 100);
     expect(await rep.balanceOf(user1.address)).to.equal(100);
 
     await expect(
       rep.connect(user1).mint(user2.address, 50)
-    ).to.be.revertedWith("Only owner can call this function");
+    ).to.be.revertedWith("Caller is not a minter");
+  });
+
+  it("should allow MINTER_BURNER_ROLE to burn tokens", async function () {
+    await rep.connect(owner).mint(user1.address, 100);
+    expect(await rep.balanceOf(user1.address)).to.equal(100);
+
+    await rep.connect(owner).burn(user1.address, 50);
+    expect(await rep.balanceOf(user1.address)).to.equal(50);
+
+    await expect(
+      rep.connect(user1).burn(user1.address, 25)
+    ).to.be.revertedWith("Caller is not a burner");
   });
 
   it("should allow transfer if enabled", async function () {
@@ -36,13 +48,19 @@ describe("ReputationToken (ERC20)", function () {
     await rep.connect(owner).mint(user1.address, 100);
     await expect(
       rep.connect(user1).transfer(user2.address, 200)
-    ).to.be.revertedWith("ERC20: transfer amount exceeds balance");
+    ).to.be.revertedWithCustomError(rep, "ERC20InsufficientBalance");
   });
 
   it("should not allow minting to zero address", async function () {
     await expect(
       rep.connect(owner).mint("0x0000000000000000000000000000000000000000", 100)
     ).to.be.revertedWith("ERC20: mint to the zero address");
+  });
+
+  it("should not allow burning from zero address", async function () {
+    await expect(
+      rep.connect(owner).burn("0x0000000000000000000000000000000000000000", 100)
+    ).to.be.revertedWith("ERC20: burn from the zero address");
   });
 
   it("should not allow transfer to zero address", async function () {
