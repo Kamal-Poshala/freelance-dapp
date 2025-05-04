@@ -1,6 +1,6 @@
 
 body {
-  background-color: #000000;
+  background-color: #e8cbf2;
   color: #f0f0f0;
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
@@ -15,7 +15,7 @@ h1, h2, h3 {
   padding: 24px;
   max-width: 900px;
   margin: 0 auto;
-  background-color: #111;
+  background-color: #bf7dda;
   min-height: 100vh;
   border-left: 5px solid #FFD700;
   text-align: center;
@@ -33,14 +33,14 @@ h1, h2, h3 {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #7393d2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: rgb(30, 29, 29);
+  color: rgb(159, 121, 243);
 }
 
 .App-link {
@@ -76,8 +76,8 @@ input, select {
   width: 100%;
   border-radius: 4px;
   border: 1px solid #FFD700;
-  background-color: #222;
-  color: #fff;
+  background-color: #dfa1f8;
+  color: #0f0909;
 }
 
 table {

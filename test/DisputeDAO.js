@@ -25,9 +25,10 @@ describe("DAO Voting (Dispute Resolution)", function () {
     expect(dispute.freelancer).to.equal(user2.address);
   });
 
-  it("should allow voting and resolve dispute", async function () {
+  it("should allow voting and resolve dispute with refund", async function () {
     const reason = "Non-delivery of work";
-    const tx = await dao.connect(user1).createDispute(user2.address, reason, { value: ethers.parseEther("0.05") });
+    const disputeFee = ethers.parseEther("0.05");
+    const tx = await dao.connect(user1).createDispute(user2.address, reason, { value: disputeFee });
     const receipt = await tx.wait();
     const disputeId = receipt.logs
       .map(log => dao.interface.parseLog(log))
@@ -36,11 +37,17 @@ describe("DAO Voting (Dispute Resolution)", function () {
     await dao.connect(user2).voteOnDispute(disputeId, 1); // Vote for client
     const dispute = await dao.disputes(disputeId);
     expect(dispute.votesClient).to.equal(1);
+    expect(dispute.votesFreelancer).to.equal(0);
 
+    const initialBalance = await ethers.provider.getBalance(user1.address);
     await dao.connect(user1).resolveDispute(disputeId);
     const resolvedDispute = await dao.disputes(disputeId);
     expect(resolvedDispute.resolved).to.be.true;
     expect(resolvedDispute.votesClient).to.be.gte(resolvedDispute.votesFreelancer);
+
+    // Check that the client received the refund
+    const finalBalance = await ethers.provider.getBalance(user1.address);
+    expect(finalBalance).to.be.gt(initialBalance);
   });
 
   it("should not allow double voting", async function () {

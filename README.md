@@ -13,7 +13,6 @@ A decentralized application (DApp) built on Ethereum that allows clients to hire
 - [Directory Structure](#directory-structure)
 - [Security Notes](#security-notes)
 - [Future Improvements](#future-improvements)
-- [License](#license)
 
 ## Overview
 
@@ -31,6 +30,12 @@ The smart contracts are written in Solidity and deployed using Hardhat. The fron
 - **Dispute Resolution DAO**: A decentralized voting system for resolving disputes between clients and freelancers.
 - **IPFS Integration**: Deliverables are uploaded to IPFS via Pinata for decentralized storage.
 - **Local Testing**: Pre-configured Hardhat accounts for easy testing (client and freelancer roles).
+
+## Project Demo
+
+[![Watch the Demo](https://img.youtube.com/vi/lUf8aVmSUtQ/0.jpg)](https://youtu.be/lUf8aVmSUtQ?si=rC3GC_QOnARlTxoC)
+
+Click the image above to watch the full demo of our decentralized freelance marketplace on YouTube.
 
 ## Prerequisites
 
